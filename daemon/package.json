@@ -5,7 +5,8 @@
     "mongodb": "^4.5.0",
     "mongoose": "^6.3.3",
     "node-fetch": "^2.6.7",
-    "nodemon": "^2.0.16"
+    "nodemon": "^2.0.16",
+    "pm2": "^5.2.0"
   },
   "name": "daemon",
   "version": "1.0.0",
