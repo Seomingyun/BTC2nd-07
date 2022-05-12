@@ -1,17 +1,8 @@
 // db 업데이트 할 때마다 변경되는 정보
 require('dotenv').config();
-const mongoose = require("mongoose");
-const infoSchema = require('../models/info');
-const {DB_URI} = process.env;        
+const infoSchema = require('../models/info');       
 
 class infoService {
-    constructor() {
-        // mongoose
-        // .connect(DB_URI, {useNewUrlParser: true, useUnifiedTopology: true})
-        // .then(async () => console.log('inforService DB is connecting...'))
-        // .catch(e => console.log(e));
-    }
-
     // 최신 블록 저장 정보 가져오기
     async getInfo(last_irreversible_block_num) {
         let info = await infoSchema.findOne();
@@ -34,9 +25,5 @@ class infoService {
        return new_info;
     }
 }
-
-// let ming = new infoService();
-// ming.getInfo(139935986)
-// .then(res => console.log(res.id))
 
 module.exports = infoService;
