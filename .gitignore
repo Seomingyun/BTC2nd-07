@@ -1,0 +1,31 @@
+### daemon ###
+/daemon/node_modules
+/daemon/.env
+
+### explorer ###
+
+/explorer/server/node_modules
+/explorer/server/.env
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+explorer/client/node_modules
+explorer/client/.pnp
+explorer/client/.pnp.js
+
+# testing
+explorer/client/coverage
+
+# production
+explorer/client/build
+
+# misc
+explorer/client.DS_Store
+explorer/client.env.local
+explorer/client.env.development.local
+explorer/client.env.test.local
+explorer/client.env.production.local
+
+explorer/clientnpm-debug.log*
+explorer/clientyarn-debug.log*
+explorer/clientyarn-error.log*
