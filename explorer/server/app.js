@@ -9,6 +9,7 @@ const {PORT, DB_URI} = process.env;
 app.use(cors());
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
+app.use('/', require('./routes/index'));
 
 mongoose
     .connect(DB_URI, {useNewUrlParser: true, useUnifiedTopology: true})
@@ -20,9 +21,5 @@ mongoose
     })
     .catch(e => console.log(e));
 
-
-app.get('/', (req, res) => {
-    res.send('hello node');
-})
 
 module.exports = app;

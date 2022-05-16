@@ -1,7 +1,14 @@
+import { useNavigate} from "react-router";
 import { Table } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function BlockList() {
+function BlockList({blocks}) {
+    const navigate = useNavigate();
+
+    const blockHdr = (block_num) => {
+        navigate('/block?' + block_num)
+    }
+
     return (
         <div className='BlockList'>
             <Table bordered hover>
@@ -13,16 +20,18 @@ function BlockList() {
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                <td>1</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                </tr>
-                <tr>
-                <td>2</td>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                </tr>
+                {
+                    blocks.map((block)=>{
+                        return (
+                            <tr key={block._id}
+                                onClick={() => {blockHdr(block._id)}}>
+                                <td>{block._id}</td>
+                                <td>{block.producer}</td>
+                                <td>{block.timestamp}</td>
+                            </tr>
+                        )
+                    })
+                }
             </tbody>
             </Table>
 

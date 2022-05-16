@@ -21,9 +21,7 @@ const getBlockInfo = async() => {
 }
 
 const createSchema = async(block_num) => {
-    console.time('get one block info');
     let block = await rpc.get_block(block_num);
-    console.timeEnd('get one block info');
     block['_id'] = block.block_num;
 
     let txs = block.transactions;
@@ -48,13 +46,26 @@ const runDaemon = async() => {
     for (let num = lastCurBlock+1; num <= lastIrrBlock; num++){
         let [block, txs] = await createSchema(num);
         blocks = [...blocks, ...[block]];
-        transactions = [...transactions, ... txs]
+        transactions = [...transactions, ... txs];
+
+        if (blocks.length === 12){
+            await blockInterface.saveAllBlocks(blocks);
+            await transactionInterface.saveAlltransactions(transactions);
+            await infoInterface.updateInfo(block._id);
+
+            blocks = [];
+            transactions = [];
+        }
+
     }
 
-    await blockInterface.saveAllBlocks(blocks);
-    await transactionInterface.saveAlltransactions(transactions);
+    if(blocks.length !== 0){
+        await blockInterface.saveAllBlocks(blocks);
+        await transactionInterface.saveAlltransactions(transactions);
+        await infoInterface.updateInfo(lastIrrBlock);
+    }
 
-    await infoInterface.updateInfo(lastIrrBlock);
+    return;
 }
 
 mongoose.connect(DB_URI, {useNewUrlParser: true, useUnifiedTopology: true})
